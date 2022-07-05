@@ -1,9 +1,10 @@
-import socket from "../socket";
+import socket from "socket";
 
 function Home() {
   return (
     <div>
-      <button onClick={() => socket.emit("game:start")}>Start</button>
+      <h1>Home</h1>
+      <button onClick={() => socket.emit("game:find-room")}>Play</button>
     </div>
   );
 }
