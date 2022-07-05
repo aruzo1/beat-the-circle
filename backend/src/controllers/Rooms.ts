@@ -1,11 +1,11 @@
 import { Socket } from "socket.io";
 import Room from "./Room";
 
-class Game {
+class Rooms {
   rooms: Room[] = [];
 
-  findRoom(socket: Socket) {
-    let room = this.rooms.find((g) => g.players.length < 2);
+  joinRoom(socket: Socket) {
+    let room = this.rooms.find((r) => r.players.length < 2);
 
     if (!room) {
       room = new Room();
@@ -15,7 +15,7 @@ class Game {
     room.join(socket);
   }
 
-  leave(socket: Socket) {
+  leaveRooms(socket: Socket) {
     this.rooms.forEach((r) => {
       r.players.forEach((p) => {
         if (socket.id === p) r.leave(socket);
@@ -24,4 +24,4 @@ class Game {
   }
 }
 
-export default Game;
+export default Rooms;

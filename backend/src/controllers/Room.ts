@@ -1,18 +1,20 @@
 import { Socket } from "socket.io";
-import base64id from "base64id";
+import { io } from "..";
 
 class Room {
-  id = base64id.generateId();
   players: string[] = [];
 
-  join(socket: Socket) {
+  async join(socket: Socket) {
     this.players.push(socket.id);
-    socket.join(this.id);
+
+    socket.emit("room:read", this);
+    io.to(this.players).except(socket.id).emit("room:join", socket.id);
   }
 
-  leave(socket: Socket) {
+  async leave(socket: Socket) {
     this.players = this.players.filter((p) => p !== socket.id);
-    socket.leave(this.id);
+
+    io.to(this.players).emit("room:leave", socket.id);
   }
 }
 
