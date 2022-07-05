@@ -1,5 +1,5 @@
 import { Socket } from "socket.io";
-import Room from "controllers/Room";
+import Room from "./Room";
 
 class Game {
   rooms: Room[] = [];
